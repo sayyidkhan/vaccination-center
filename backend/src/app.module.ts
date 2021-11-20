@@ -7,7 +7,7 @@ import {CatsModule} from "./cat/cat.module";
 
 @Module({
   imports: [
-      MongooseModule.forRoot("mongodb://localhost:2717/vaccination"),
+      MongooseModule.forRoot("mongodb://admin:pass@localhost:2717/vaccination?authSource=admin"),
       //add new modules below here
       CatsModule,
   ],

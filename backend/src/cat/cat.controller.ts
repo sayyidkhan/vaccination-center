@@ -7,7 +7,7 @@ import {Cat} from "./schema/cat.schema";
 export class CatController {
     constructor(private readonly catService : CatService) {}
 
-    @Post()
+    @Post("/create_new")
     async createNewCat(@Body() dto: Cat) : Promise<Cat> {
         const cat : Cat = await this.catService.create(dto);
         if(cat !== undefined){
