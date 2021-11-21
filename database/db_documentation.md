@@ -17,11 +17,25 @@ How to get started using the database
 
 1. ensure docker is installed on your computer
 2. open a terminal in the current directory
-3. run this command in this current directory
+3. run this command in this current directory of this file
 ```bash
 docker-compose up
 ```
 Thats it, 3 steps to get started using this mongo_db
+
+4. open a new terminal in the current directory of this file
+5. navigate into the mongo by running this command(ensure the mongo is opened in the database_scripts directory)
+```bash
+mongosh localhost:2717
+```
+6. run these commands below to insert record into the database
+```bash
+
+mongoimport -h localhost:2717 -d vaccination -c vaccinecenters -u admin -p pass --authenticationDatabase admin --jsonArray --file ./database_scripts/vaccinecenters.json
+
+```
+
+Thats it, additional 3 steps to insert records into DB
 
 ## shutdown the db_server
 ```bash

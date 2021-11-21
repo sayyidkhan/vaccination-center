@@ -9,7 +9,13 @@ export class VaccineCenter {
     name: string;
 
     @Prop()
-    id: number;
+    vaccine_center_id: number;
+
+    @Prop()
+    current_capacity : number;
+
+    @Prop()
+    total_capacity : number;
 
 }
 

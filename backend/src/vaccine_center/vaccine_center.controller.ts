@@ -1,21 +1,31 @@
 import {Body, Controller, Get, Post} from "@nestjs/common";
 import {VaccineCenter} from "./schema/vaccine_center.schema";
+import {VaccineCenterService} from "./vaccine_center.service";
+import {AssignNewVaccineCenterDTO} from "./dto/assignNewVaccineCenterDTO";
 
 
 @Controller("vaccine_center")
 export class VaccineCenterController {
-    constructor() {}
+    constructor(private readonly vaccineCenterService: VaccineCenterService) {
+    }
 
     @Get("all")
-    async getAllVaccineCenters() : Promise<VaccineCenter[]> {
-        const result  : VaccineCenter[] = [
-            { name: "None", id: 0},
-            { name: "Bukit Batok CC", id: 1 },
-            { name: "Bukit Panjang CC", id: 2 },
-            { name: "Bukit Timah CC", id: 3 },
-            { name: "Outram Park Polyclinic", id: 4 },
-        ];
-        return result;
+    async getAllVaccineCenters(): Promise<VaccineCenter[]> {
+        const vaccineCenterList: VaccineCenter[] = await this.vaccineCenterService.findAll();
+        if (vaccineCenterList !== undefined) {
+            return vaccineCenterList;
+        }
+        return [];
+    }
+
+    @Post("assign")
+    async assignANewVaccineCenter(@Body() dto: AssignNewVaccineCenterDTO): Promise<VaccineCenter> {
+        const vaccineCenter: VaccineCenter = await this.vaccineCenterService.create(dto);
+        if (vaccineCenter !== undefined) {
+            return vaccineCenter;
+        } else {
+            return null;
+        }
     }
 
 }

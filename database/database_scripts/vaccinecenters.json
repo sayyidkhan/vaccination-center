@@ -1,0 +1,41 @@
+[{
+  "_id": {
+    "$oid": "6199d00ffeea59a0e7a00eff"
+  },
+  "name": "Outram Park Polyclinic",
+  "vaccine_center_id": 4,
+  "current_capacity": 0,
+  "total_capacity": 200
+},{
+  "_id": {
+    "$oid": "6199d02efeea59a0e7a00f00"
+  },
+  "name": "Bukit Timah CC",
+  "vaccine_center_id": 3,
+  "current_capacity": 0,
+  "total_capacity": 100
+},{
+  "_id": {
+    "$oid": "6199d055feea59a0e7a00f01"
+  },
+  "name": "Bukit Panjang CC",
+  "vaccine_center_id": 2,
+  "current_capacity": 0,
+  "total_capacity": 100
+},{
+  "_id": {
+    "$oid": "6199d08dfeea59a0e7a00f02"
+  },
+  "name": "Bukit Batok CC",
+  "vaccine_center_id": 1,
+  "current_capacity": 0,
+  "total_capacity": 50
+},{
+  "_id": {
+    "$oid": "6199d0a8feea59a0e7a00f03"
+  },
+  "name": "None",
+  "vaccine_center_id": 0,
+  "current_capacity": 0,
+  "total_capacity": 0
+}]

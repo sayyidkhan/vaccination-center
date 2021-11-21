@@ -2,7 +2,6 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {Booking, BookingDocument} from "./schema/booking.schema";
-import {CreateBookingDTO} from "./dto/bookingDTO";
 
 
 

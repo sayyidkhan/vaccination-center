@@ -17,7 +17,7 @@ import * as PropTypes from "prop-types";
 const nricChecker = require("nric");
 
 
-const noVaccineCenterSelected = {name: "None", id: 0};
+const noVaccineCenterSelected = {name: "None", vaccine_center_id: 0};
 
 VaccineRegistrationSubmitButton.propTypes = {
     nric: PropTypes.string,
@@ -94,33 +94,50 @@ function VaccineRegistrationSubmitButton(props) {
             >
                 Register!
             </Button>
-            <div style={{ color: statusMessage.color,textAlign: "center", margin: 10}}>{statusMessage.msg}</div>
+            <div style={{color: statusMessage.color, textAlign: "center", margin: 10}}>{statusMessage.msg}</div>
         </div>
     );
 }
 
 export function VaccineRegistration() {
-    const [vaccineCenter, setVaccineCenter] = useState([noVaccineCenterSelected]);
+    const [vaccineCenter, setVaccineCenter] = useState([]);
     const [nric, setNRIC] = useState("");
     const [fullName, setFullName] = useState("");
     const [selectedCenter, setSelectedCenter] = useState(0);
     const [date, setDate] = useState(new Date());
 
+    const [totalCapacity , setTotalCapacity] = useState(0);
+
 
     useEffect(() => {
-        getAllVaccineCenter()
-            .then(res => {
-                setVaccineCenter(res.data);
-            })
-            .catch(err => {
-                setVaccineCenter([noVaccineCenterSelected]);
-            });
-    }, [vaccineCenter]);
+        if(vaccineCenter.length === 0) {
+            getAllVaccineCenter()
+                .then(res => {
+                    setVaccineCenter(res.data);
+                })
+                .catch(err => {
+                    setVaccineCenter([noVaccineCenterSelected]);
+                });
+        }
+    }, []);
 
-    const handleSelect = (event) => setSelectedCenter(event.target.value);
+
     const handleDateChange = (value) => setDate(value);
     const handleNRICChange = (evt) => setNRIC(evt.target.value);
     const handleFullNameChange = (evt) => setFullName(evt.target.value);
+    const handleSelect = (event) => {
+        setSelectedCenter(event.target.value);
+        const getTotalCapacity = () => {
+            let result = 0;
+            vaccineCenter.forEach((individualCenter) => {
+                if(individualCenter.vaccine_center_id === event.target.value) {
+                    result = individualCenter.total_capacity;
+                }
+            });
+            return result;
+        };
+        setTotalCapacity(getTotalCapacity());
+    }
 
 
     return (
@@ -170,9 +187,12 @@ export function VaccineRegistration() {
                         sx={{mb: 2}}
                     >
                         {vaccineCenter.map((v) => {
-                            return <MenuItem key={v.id} value={v.id}>{v.name}</MenuItem>;
+                            return <MenuItem key={v.vaccine_center_id} value={v.vaccine_center_id}>{v.name}</MenuItem>;
                         })}
                     </Select>
+                    <div style={{ marginBottom : 30 }} hidden={selectedCenter === 0}>
+                        <span>Total Capacity: {totalCapacity}</span>
+                    </div>
                     <DateTimePicker
                         renderInput={(props) => <TextField {...props} />}
                         label="Slot"
