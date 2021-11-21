@@ -9,6 +9,6 @@ export const postNewBooking = async (nric,fullName,vaccineCenterId,date) => {
         nric : nric,
         full_name : fullName,
         vaccine_center_id : vaccineCenterId,
-        date : date
+        booking_date : date
     });
 }

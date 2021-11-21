@@ -22,7 +22,7 @@ const noVaccineCenterSelected = {name: "None", id: 0};
 VaccineRegistrationSubmitButton.propTypes = {
     nric: PropTypes.string,
     fullName: PropTypes.string,
-    selectedCenter: PropTypes.string
+    selectedCenter: PropTypes.number
 };
 
 
@@ -73,6 +73,7 @@ function VaccineRegistrationSubmitButton(props) {
         //if there are no errors, can perform backend operations
         const validation = basicValidation();
         if (!validation) {
+            console.log(props.date);
             postNewBooking(props.nric, props.fullName, props.selectedCenter, props.date)
                 .then(res => {
                     setStatusMessage({color: "green", msg: `${props.nric} added to booking slot successfully`});
